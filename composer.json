@@ -1,6 +1,6 @@
 {
     "name": "pyntax/config",
-    "description": "Config compoenent of the Pyntax Framework",
+    "description": "Config component of the Pyntax Framework",
     "license": "MIT",
     "authors": [
         {
@@ -8,5 +8,10 @@
             "email": "SahilDude89ss@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Pyntax\\": "src/Pyntax/"
+        }
+    }
 }
