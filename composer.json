@@ -1,0 +1,12 @@
+{
+    "name": "pyntax/config",
+    "description": "Config compoenent of the Pyntax Framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sahil Sharma",
+            "email": "SahilDude89ss@gmail.com"
+        }
+    ],
+    "require": {}
+}
