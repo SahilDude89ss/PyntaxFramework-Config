@@ -31,11 +31,21 @@ namespace Pyntax\Config;
 class Config extends ConfigAbstract
 {
     /**
+     * @var bool
+     */
+    protected $_path = false;
+
+    /***
      * @param bool|false $defaultKey
      * @param bool|false $fileToBeLoaded
+     * @param bool|false $path
      */
-    public function __construct($defaultKey = false, $fileToBeLoaded = false) {
+    public function __construct($defaultKey = false, $fileToBeLoaded = false, $path = false)
+    {
         $this->_default_key = $defaultKey;
+        if (!empty($path)) {
+            $this->_path = $path;
+        }
         $this->loadConfig($fileToBeLoaded);
     }
 
@@ -45,17 +55,19 @@ class Config extends ConfigAbstract
      */
     protected function loadConfig($filesToBeLoaded = "config.php")
     {
-        $configFileDirectory = dirname(realpath(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . self::$_config_folder_name)) . DIRECTORY_SEPARATOR . self::$_config_folder_name;
+        if (empty($this->_path)) {
+            $this->_path = dirname(realpath(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . self::$_config_folder_name)) . DIRECTORY_SEPARATOR . self::$_config_folder_name;
+        }
 
         if (empty($filesToBeLoaded)) {
             //Do not load anything if the file is empty
         } else if (is_array($filesToBeLoaded)) {
             foreach ($filesToBeLoaded as $_fileToBeLoaded) {
-                include_once $configFileDirectory . DIRECTORY_SEPARATOR . $_fileToBeLoaded;
+                include_once $this->_path . DIRECTORY_SEPARATOR . $_fileToBeLoaded;
             }
         } else if (!empty($filesToBeLoaded)) {
-            if (file_exists($configFileDirectory . DIRECTORY_SEPARATOR . $filesToBeLoaded)) {
-                include_once $configFileDirectory . DIRECTORY_SEPARATOR . $filesToBeLoaded;
+            if (file_exists($this->_path . DIRECTORY_SEPARATOR . $filesToBeLoaded)) {
+                include_once $this->_path . DIRECTORY_SEPARATOR . $filesToBeLoaded;
             }
         }
     }

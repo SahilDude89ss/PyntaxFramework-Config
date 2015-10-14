@@ -23,6 +23,7 @@
  */
 
 Pyntax\Config\Config::writeConfig('core',array(
+    'config_dir' => '',
     'MySQLAdapter' => 'Pyntax\DAO\Adapter\MySqlAdapter'
 ));
 
