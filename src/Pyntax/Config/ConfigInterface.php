@@ -54,4 +54,13 @@ interface ConfigInterface {
      */
     public static function write($key, $value);
 
+    /**
+     * This function is loads all the files in a particular folder, this is meant to the config folder.
+     *
+     * @param bool|false $configPath
+     * @return bool
+     * @throws \Exception
+     */
+    public static function loadConfigFiles($configPath = false);
+
 }

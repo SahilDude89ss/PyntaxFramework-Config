@@ -80,5 +80,26 @@ abstract class ConfigAbstract implements ConfigInterface
         self::$_config[$key] = $value;
     }
 
+    /**
+     * This function is loads all the files in a particular folder, this is meant to the config folder.
+     *
+     * @param bool|false $configPath
+     * @return bool
+     * @throws \Exception
+     */
+    public static function loadConfigFiles($configPath = false)
+    {
+        if(!is_dir($configPath)) {
+            throw new \Exception("Config directory {$configPath} not found!");
+        }
 
+        $filesToBeLoaded = scandir($configPath);
+        foreach($filesToBeLoaded as $_file) {
+            if(preg_match('/.*\.php/',$_file)) {
+                include_once $configPath.$_file;
+            }
+        }
+
+        return true;
+    }
 }
