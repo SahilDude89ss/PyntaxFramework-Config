@@ -60,9 +60,12 @@ abstract class ConfigAbstract implements ConfigInterface
     public static function read($key = false)
     {
         if(is_array($key) && !empty($key)) {
+            $_value_to_be_returned = self::$_config;
             foreach(array_values($key) as $key => $_val) {
-                return self::read($_val);
+                $_value_to_be_returned = $_value_to_be_returned[$_val];
             }
+
+            return $_value_to_be_returned;
         }
 
         return isset(self::$_config[$key]) ? self::$_config[$key] : false;
