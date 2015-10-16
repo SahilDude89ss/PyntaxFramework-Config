@@ -96,7 +96,7 @@ abstract class ConfigAbstract implements ConfigInterface
         $filesToBeLoaded = scandir($configPath);
         foreach($filesToBeLoaded as $_file) {
             if(preg_match('/.*\.php/',$_file)) {
-                include_once $configPath.$_file;
+                include_once $configPath.DIRECTORY_SEPARATOR.$_file;
             }
         }
 
