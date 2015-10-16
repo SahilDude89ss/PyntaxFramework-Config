@@ -39,51 +39,30 @@ abstract class ConfigAbstract implements ConfigInterface
     protected static $_config = array();
 
     /**
-     * @var string
-     */
-    protected static $_config_folder_name = "config";
-
-    /**
-     * @var bool
-     */
-    protected $_default_key = false;
-
-    /**
-     * @param string $filesToBeLoaded
-     * @return mixed
-     */
-    protected abstract function loadConfig($filesToBeLoaded = "config.php");
-
-    /**
      * This function is sued to write multiple config variables to the static $_config variable
      * @param array $array
+     *
      * @return mixed
      */
-    public function writeConfigArray(array $array = array())
+    public static function writeArray(array $array = array())
     {
         foreach ($array as $key => $val) {
-            $this->writeConfig($key, $val);
+            self::write($key, $val);
         }
     }
 
     /**
      * This function returns the value of the key in the config.
-     * @param $key
      *
+     * @param bool|false $key
      * @return mixed
      */
-    public function readConfig($key = false)
+    public static function read($key = false)
     {
-        if (empty($key)) {
-            if (isset($this->_default_key)) {
-                return isset(self::$_config[$this->_default_key]) ? self::$_config[$this->_default_key] : false;
+        if(is_array($key) && !empty($key)) {
+            foreach(array_values($key) as $key => $_val) {
+                return self::read($_val);
             }
-
-            return isset(self::$_config) ? self::$_config : false;
-        }
-
-        if (isset($this->_default_key)) {
-            return isset(self::$_config[$this->_default_key][$key]) ? self::$_config[$this->_default_key][$key] : false;
         }
 
         return isset(self::$_config[$key]) ? self::$_config[$key] : false;
@@ -96,14 +75,10 @@ abstract class ConfigAbstract implements ConfigInterface
      *
      * @return mixed
      */
-    public function writeToConfig($key, $value)
+    public static function write($key, $value)
     {
         self::$_config[$key] = $value;
-        return true;
     }
 
-    public static function writeConfig($key, $value)
-    {
-        self::$_config[$key] = $value;
-    }
+
 }

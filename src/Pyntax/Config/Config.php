@@ -28,47 +28,4 @@ namespace Pyntax\Config;
  * Class Config
  * @package Pyntax\Config
  */
-class Config extends ConfigAbstract
-{
-    /**
-     * @var bool
-     */
-    protected static $_path = false;
-
-    /***
-     * @param bool|false $defaultKey
-     * @param bool|false $fileToBeLoaded
-     * @param bool|false $path
-     */
-    public function __construct($defaultKey = false, $fileToBeLoaded = false, $path = false)
-    {
-        $this->_default_key = $defaultKey;
-        if (!empty($path)) {
-            self::$_path = $path;
-        }
-        $this->loadConfig($fileToBeLoaded);
-    }
-
-    /**
-     * @param string $filesToBeLoaded
-     * @return mixed
-     */
-    protected function loadConfig($filesToBeLoaded = "config.php")
-    {
-        if (empty(self::$_path)) {
-            self::$_path = dirname(realpath(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . self::$_config_folder_name)) . DIRECTORY_SEPARATOR . self::$_config_folder_name;
-        }
-
-        if (empty($filesToBeLoaded)) {
-            //Do not load anything if the file is empty
-        } else if (is_array($filesToBeLoaded)) {
-            foreach ($filesToBeLoaded as $_fileToBeLoaded) {
-                include_once self::$_path . DIRECTORY_SEPARATOR . $_fileToBeLoaded;
-            }
-        } else if (!empty($filesToBeLoaded)) {
-            if (file_exists(self::$_path . DIRECTORY_SEPARATOR . $filesToBeLoaded)) {
-                include_once self::$_path . DIRECTORY_SEPARATOR . $filesToBeLoaded;
-            }
-        }
-    }
-}
+class Config extends ConfigAbstract { }

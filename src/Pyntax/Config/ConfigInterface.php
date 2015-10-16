@@ -35,7 +35,7 @@ interface ConfigInterface {
      * @param array $array
      * @return mixed
      */
-    public function writeConfigArray(array $array = array());
+    public static function writeArray(array $array = array());
 
     /**
      * This function returns the value of the key in the config.
@@ -43,15 +43,7 @@ interface ConfigInterface {
      * @param bool|false $key
      * @return mixed
      */
-    public function readConfig($key = false);
-
-    /**
-     * @param $key
-     * @param $value
-     *
-     * @return mixed
-     */
-    public function writeToConfig($key, $value);
+    public static function read($key = false);
 
     /**
      * This function is used to write to the config variable.
@@ -60,6 +52,6 @@ interface ConfigInterface {
      *
      * @return mixed
      */
-    public static function writeConfig($key, $value);
+    public static function write($key, $value);
 
 }
